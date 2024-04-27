@@ -1,10 +1,12 @@
 name: Kubernetes Cluster
 
 on:
-  push:
+  workflow_run:
+    workflows: ["Build and Push Docker image"]
+    types:
+      - completed
     branches:
       - main
-
 jobs:
   kind-cluster:
     runs-on: ubuntu-latest
@@ -24,7 +26,6 @@ jobs:
       run: |
         # This is where you would add commands to deploy and test your application.
         kubectl get nodes
-        kubectl apply -f your_k8s_config.yaml
         # Add more kubectl commands as needed for testing.
 
     - name: Cleanup Cluster
