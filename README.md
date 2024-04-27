@@ -29,4 +29,13 @@ To do this, several prerequsites ar needed:
 
 Also, simple test is configured in GitHub workflow before building docker file and push it to DockerHub.
 
+5. Added helm template for our application in dir "helm"
+This tempate will be used to deploy our docker image from DockerHUB to KIND kubernetes cluster which will be created in the GitHUB Actions runner.
+Packeged helm chart will be stored in the dir "helm" and is automatically build in one of the steps in new workflow named "Kubernetes".
+Ideally, helm charts are stored in a remote Helm repository (github pages, chartmuseum: https://chartmuseum.com/) but for simplicity, we will store the packeged helm chart in local dir on the github actions runner executor.
+Packaging helm charts: "helm package ./"
+
+6. Added second GitHUB Actions workflow with dependency on the previous workflow.
+This workflow will provision kubernetes cluster with kind and use this cluster for tests/deploy our ample application with helm.
+
 

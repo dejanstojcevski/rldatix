@@ -21,10 +21,18 @@ jobs:
         sudo mv ./kind /usr/local/bin/kind
         kind create cluster
         kubectl cluster-info --context kind-kind
+    
+    - name: Install Helm
+      run: |
+        curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+
+    - name: Deploy Helm Chart
+      run: |
+        helm repo add stable https://charts.helm.sh/stable
+        helm install mydotnetapp ./helm
 
     - name: Run Tests
       run: |
-        # This is where you would add commands to deploy and test your application.
         kubectl get nodes
         # Add more kubectl commands as needed for testing.
 
