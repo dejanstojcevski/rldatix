@@ -44,4 +44,19 @@ NOTE: I tried to install MetalLB addon to KIND k8s cluster but failed to do so. 
 
 In order our app to be in Ready state, I removed liveness and readiness probes because they are not configured in the application code itself.
 
+7. Connect to our app running inside kubernetes cluster with port-forward command:
+kubectl port-forward --address localhost svc/mydotnetapp 8888:80
 
+This commands forwards traffic from localhost:8888 (on localhost - github action runner) to service mydotnetapp:80 (in kubernetes cluster) to container mydotnetapp:8080 (inside the pod)
+
+It can be seen from workflows that connectivity is established (altough response from our app is empty)
+
+8. Configure our dockerized app to be run as AWS Lambda Function
+I will use my own private AWS account to deploy mydotnetapp as a Lambda function in my AWS Account.
+In order to do that:
+- we will need a private ECR repository where our docker image will be stored. i will do this manually (logs in push_docker_image_to_ecr.log)
+  this ECR repository must reside in same AWS region as Lambda function itself
+- we will use terraform as IaC tool. dir "lambda" will be home dir for terraform operations(terraform init, terraform plan, terraform apply, terrform destroy). it will house terraform configuration (main.tf), terraform state file (terraform.tfstate) and .terraform dir - where providers will be downloaded.
+- logs from terrafrom apply are in "terraform_apply.log" file - it creates: IAM policies, Lambda Function, API Gateway trough which our app will be publicly exposed to internet
+- logs from terraform destroy are in "terrafaform_destroy.log" file - it destroys complete infrastructure
+- outputs from terraform apply operation are information about public API endpoints API Gateway.

@@ -1,0 +1,223 @@
+dejan@test:~/rldatix/lambda$ terraform destroy
+aws_iam_role.lambda_execution_role: Refreshing state... [id=lambda_execution_role]
+aws_api_gateway_rest_api.api: Refreshing state... [id=8f2o0qasg4]
+aws_api_gateway_resource.api_resource: Refreshing state... [id=7b1ysi]
+aws_api_gateway_method.api_method: Refreshing state... [id=agm-8f2o0qasg4-7b1ysi-GET]
+aws_lambda_function.my_lambda: Refreshing state... [id=MyDotNetAppFunction]
+aws_iam_role_policy_attachment.lambda_basic_execution: Refreshing state... [id=lambda_execution_role-20240427124414718600000001]
+aws_lambda_permission.api_lambda_permission: Refreshing state... [id=AllowAPIGatewayInvoke]
+aws_api_gateway_integration.lambda_integration: Refreshing state... [id=agi-8f2o0qasg4-7b1ysi-GET]
+aws_api_gateway_deployment.api_deployment: Refreshing state... [id=2nop5z]
+aws_api_gateway_stage.api_stage: Refreshing state... [id=ags-8f2o0qasg4-prod-v2]
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+  - destroy
+
+Terraform will perform the following actions:
+
+  # aws_api_gateway_deployment.api_deployment will be destroyed
+  - resource "aws_api_gateway_deployment" "api_deployment" {
+      - created_date  = "2024-04-27T12:44:32Z" -> null
+      - execution_arn = "arn:aws:execute-api:us-east-1:230005740435:8f2o0qasg4/prod" -> null
+      - id            = "2nop5z" -> null
+      - invoke_url    = "https://8f2o0qasg4.execute-api.us-east-1.amazonaws.com/prod" -> null
+      - rest_api_id   = "8f2o0qasg4" -> null
+      - stage_name    = "prod" -> null
+    }
+
+  # aws_api_gateway_integration.lambda_integration will be destroyed
+  - resource "aws_api_gateway_integration" "lambda_integration" {
+      - cache_key_parameters    = [] -> null
+      - cache_namespace         = "7b1ysi" -> null
+      - connection_type         = "INTERNET" -> null
+      - http_method             = "GET" -> null
+      - id                      = "agi-8f2o0qasg4-7b1ysi-GET" -> null
+      - integration_http_method = "POST" -> null
+      - passthrough_behavior    = "WHEN_NO_MATCH" -> null
+      - request_parameters      = {} -> null
+      - request_templates       = {} -> null
+      - resource_id             = "7b1ysi" -> null
+      - rest_api_id             = "8f2o0qasg4" -> null
+      - timeout_milliseconds    = 29000 -> null
+      - type                    = "AWS_PROXY" -> null
+      - uri                     = "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:230005740435:function:MyDotNetAppFunction/invocations" -> null
+    }
+
+  # aws_api_gateway_method.api_method will be destroyed
+  - resource "aws_api_gateway_method" "api_method" {
+      - api_key_required     = false -> null
+      - authorization        = "NONE" -> null
+      - authorization_scopes = [] -> null
+      - http_method          = "GET" -> null
+      - id                   = "agm-8f2o0qasg4-7b1ysi-GET" -> null
+      - request_models       = {} -> null
+      - request_parameters   = {} -> null
+      - resource_id          = "7b1ysi" -> null
+      - rest_api_id          = "8f2o0qasg4" -> null
+    }
+
+  # aws_api_gateway_resource.api_resource will be destroyed
+  - resource "aws_api_gateway_resource" "api_resource" {
+      - id          = "7b1ysi" -> null
+      - parent_id   = "3hj6g30438" -> null
+      - path        = "/mydotnetapp" -> null
+      - path_part   = "mydotnetapp" -> null
+      - rest_api_id = "8f2o0qasg4" -> null
+    }
+
+  # aws_api_gateway_rest_api.api will be destroyed
+  - resource "aws_api_gateway_rest_api" "api" {
+      - api_key_source               = "HEADER" -> null
+      - arn                          = "arn:aws:apigateway:us-east-1::/restapis/8f2o0qasg4" -> null
+      - binary_media_types           = [] -> null
+      - created_date                 = "2024-04-27T12:44:11Z" -> null
+      - description                  = "API Gateway for Lambda Function" -> null
+      - disable_execute_api_endpoint = false -> null
+      - execution_arn                = "arn:aws:execute-api:us-east-1:230005740435:8f2o0qasg4" -> null
+      - id                           = "8f2o0qasg4" -> null
+      - minimum_compression_size     = -1 -> null
+      - name                         = "LambdaAPIGateway" -> null
+      - root_resource_id             = "3hj6g30438" -> null
+      - tags                         = {} -> null
+      - tags_all                     = {} -> null
+
+      - endpoint_configuration {
+          - types            = [
+              - "EDGE",
+            ] -> null
+          - vpc_endpoint_ids = [] -> null
+        }
+    }
+
+  # aws_api_gateway_stage.api_stage will be destroyed
+  - resource "aws_api_gateway_stage" "api_stage" {
+      - arn                   = "arn:aws:apigateway:us-east-1::/restapis/8f2o0qasg4/stages/prod-v2" -> null
+      - cache_cluster_enabled = false -> null
+      - deployment_id         = "2nop5z" -> null
+      - execution_arn         = "arn:aws:execute-api:us-east-1:230005740435:8f2o0qasg4/prod-v2" -> null
+      - id                    = "ags-8f2o0qasg4-prod-v2" -> null
+      - invoke_url            = "https://8f2o0qasg4.execute-api.us-east-1.amazonaws.com/prod-v2" -> null
+      - rest_api_id           = "8f2o0qasg4" -> null
+      - stage_name            = "prod-v2" -> null
+      - tags                  = {} -> null
+      - tags_all              = {} -> null
+      - variables             = {} -> null
+      - xray_tracing_enabled  = false -> null
+    }
+
+  # aws_iam_role.lambda_execution_role will be destroyed
+  - resource "aws_iam_role" "lambda_execution_role" {
+      - arn                   = "arn:aws:iam::230005740435:role/lambda_execution_role" -> null
+      - assume_role_policy    = jsonencode(
+            {
+              - Statement = [
+                  - {
+                      - Action    = "sts:AssumeRole"
+                      - Effect    = "Allow"
+                      - Principal = {
+                          - Service = "lambda.amazonaws.com"
+                        }
+                    },
+                ]
+              - Version   = "2012-10-17"
+            }
+        ) -> null
+      - create_date           = "2024-04-27T12:44:11Z" -> null
+      - force_detach_policies = false -> null
+      - id                    = "lambda_execution_role" -> null
+      - managed_policy_arns   = [
+          - "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole",
+        ] -> null
+      - max_session_duration  = 3600 -> null
+      - name                  = "lambda_execution_role" -> null
+      - path                  = "/" -> null
+      - tags                  = {} -> null
+      - tags_all              = {} -> null
+      - unique_id             = "AROATLDLJCOJYDG5JOC3N" -> null
+
+      - inline_policy {}
+    }
+
+  # aws_iam_role_policy_attachment.lambda_basic_execution will be destroyed
+  - resource "aws_iam_role_policy_attachment" "lambda_basic_execution" {
+      - id         = "lambda_execution_role-20240427124414718600000001" -> null
+      - policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole" -> null
+      - role       = "lambda_execution_role" -> null
+    }
+
+  # aws_lambda_function.my_lambda will be destroyed
+  - resource "aws_lambda_function" "my_lambda" {
+      - architectures                  = [
+          - "x86_64",
+        ] -> null
+      - arn                            = "arn:aws:lambda:us-east-1:230005740435:function:MyDotNetAppFunction" -> null
+      - function_name                  = "MyDotNetAppFunction" -> null
+      - id                             = "MyDotNetAppFunction" -> null
+      - image_uri                      = "230005740435.dkr.ecr.us-east-1.amazonaws.com/mydotnetapp:latest" -> null
+      - invoke_arn                     = "arn:aws:apigateway:us-east-1:lambda:path/2015-03-31/functions/arn:aws:lambda:us-east-1:230005740435:function:MyDotNetAppFunction/invocations" -> null
+      - last_modified                  = "2024-04-27T12:44:31.623+0000" -> null
+      - layers                         = [] -> null
+      - memory_size                    = 128 -> null
+      - package_type                   = "Image" -> null
+      - publish                        = false -> null
+      - qualified_arn                  = "arn:aws:lambda:us-east-1:230005740435:function:MyDotNetAppFunction:$LATEST" -> null
+      - reserved_concurrent_executions = -1 -> null
+      - role                           = "arn:aws:iam::230005740435:role/lambda_execution_role" -> null
+      - source_code_hash               = "02d41cf337218f7063f6488689dfd875d5e2ca8810dad9668186aa2ba846d174" -> null
+      - source_code_size               = 0 -> null
+      - tags                           = {} -> null
+      - tags_all                       = {} -> null
+      - timeout                        = 60 -> null
+      - version                        = "$LATEST" -> null
+
+      - tracing_config {
+          - mode = "PassThrough" -> null
+        }
+    }
+
+  # aws_lambda_permission.api_lambda_permission will be destroyed
+  - resource "aws_lambda_permission" "api_lambda_permission" {
+      - action        = "lambda:InvokeFunction" -> null
+      - function_name = "MyDotNetAppFunction" -> null
+      - id            = "AllowAPIGatewayInvoke" -> null
+      - principal     = "apigateway.amazonaws.com" -> null
+      - source_arn    = "arn:aws:execute-api:us-east-1:230005740435:8f2o0qasg4/*/*/*" -> null
+      - statement_id  = "AllowAPIGatewayInvoke" -> null
+    }
+
+Plan: 0 to add, 0 to change, 10 to destroy.
+
+Changes to Outputs:
+  - api_url              = "https://8f2o0qasg4.execute-api.us-east-1.amazonaws.com/prod/prod-v2/mydotnetapp" -> null
+  - lambda_function_arn  = "arn:aws:lambda:us-east-1:230005740435:function:MyDotNetAppFunction" -> null
+  - lambda_function_name = "MyDotNetAppFunction" -> null
+
+Do you really want to destroy all resources?
+  Terraform will destroy all your managed infrastructure, as shown above.
+  There is no undo. Only 'yes' will be accepted to confirm.
+
+  Enter a value: yes
+
+aws_api_gateway_stage.api_stage: Destroying... [id=ags-8f2o0qasg4-prod-v2]
+aws_lambda_permission.api_lambda_permission: Destroying... [id=AllowAPIGatewayInvoke]
+aws_iam_role_policy_attachment.lambda_basic_execution: Destroying... [id=lambda_execution_role-20240427124414718600000001]
+aws_iam_role_policy_attachment.lambda_basic_execution: Destruction complete after 0s
+aws_api_gateway_stage.api_stage: Destruction complete after 0s
+aws_api_gateway_deployment.api_deployment: Destroying... [id=2nop5z]
+aws_lambda_permission.api_lambda_permission: Destruction complete after 1s
+aws_api_gateway_deployment.api_deployment: Destruction complete after 1s
+aws_api_gateway_integration.lambda_integration: Destroying... [id=agi-8f2o0qasg4-7b1ysi-GET]
+aws_api_gateway_integration.lambda_integration: Destruction complete after 1s
+aws_api_gateway_method.api_method: Destroying... [id=agm-8f2o0qasg4-7b1ysi-GET]
+aws_lambda_function.my_lambda: Destroying... [id=MyDotNetAppFunction]
+aws_api_gateway_method.api_method: Destruction complete after 0s
+aws_api_gateway_resource.api_resource: Destroying... [id=7b1ysi]
+aws_lambda_function.my_lambda: Destruction complete after 1s
+aws_iam_role.lambda_execution_role: Destroying... [id=lambda_execution_role]
+aws_api_gateway_resource.api_resource: Destruction complete after 1s
+aws_api_gateway_rest_api.api: Destroying... [id=8f2o0qasg4]
+aws_api_gateway_rest_api.api: Destruction complete after 0s
+aws_iam_role.lambda_execution_role: Destruction complete after 2s
+
+Destroy complete! Resources: 10 destroyed.
+dejan@test:~/rldatix/lambda$ 

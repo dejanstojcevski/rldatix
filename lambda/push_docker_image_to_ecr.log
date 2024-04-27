@@ -1,0 +1,88 @@
+dejan@test:~/rldatix$ aws ecr get-login-password --region us-east-1 | sudo docker login --username AWS --password-stdin 230005740435.dkr.ecr.us-east-1.amazonaws.com/mydotnetapp
+[sudo] password for dejan: 
+WARNING! Your password will be stored unencrypted in /root/.docker/config.json.
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/engine/reference/commandline/login/#credentials-store
+
+Login Succeeded
+dejan@test:~/rldatix$ sudo docker images
+REPOSITORY                        TAG       IMAGE ID       CREATED        SIZE
+dejanstojcevski/mydotnetapp       latest    e0df6fea9b2b   2 hours ago    221MB
+<none>                            <none>    8e430e9bda24   21 hours ago   896MB
+mydotnetapp                       latest    4c72d45f9786   21 hours ago   221MB
+<none>                            <none>    341223cf3a6a   21 hours ago   221MB
+<none>                            <none>    e190fd087c52   21 hours ago   221MB
+<none>                            <none>    9ad3e91b2822   21 hours ago   221MB
+<none>                            <none>    695c1ca6b49b   22 hours ago   221MB
+<none>                            <none>    8921f4d2d721   22 hours ago   221MB
+<none>                            <none>    989b0ed57501   22 hours ago   896MB
+<none>                            <none>    e65850fdc8a0   22 hours ago   896MB
+<none>                            <none>    3c5c746e6bfb   22 hours ago   221MB
+mcr.microsoft.com/dotnet/sdk      8.0       fcbdaa29fce6   3 days ago     866MB
+mcr.microsoft.com/dotnet/aspnet   8.0       4bf2fdf84219   3 days ago     217MB
+dejan@test:~/rldatix$ sudo docker build -t mydotnetapp:latest .
+DEPRECATED: The legacy builder is deprecated and will be removed in a future release.
+            Install the buildx component to build images with BuildKit:
+            https://docs.docker.com/go/buildx/
+
+Sending build context to Docker daemon    405kB
+Step 1/11 : FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build-env
+ ---> fcbdaa29fce6
+Step 2/11 : WORKDIR /app
+ ---> Using cache
+ ---> 69c01acbbfa2
+Step 3/11 : COPY src/*.csproj ./
+ ---> Using cache
+ ---> 993bba65d03a
+Step 4/11 : RUN dotnet restore
+ ---> Using cache
+ ---> 9c3d7c05ee07
+Step 5/11 : COPY src/. ./
+ ---> Using cache
+ ---> c181d57072a9
+Step 6/11 : RUN dotnet publish -c Release -o out
+ ---> Using cache
+ ---> 8e430e9bda24
+Step 7/11 : FROM mcr.microsoft.com/dotnet/aspnet:8.0
+ ---> 4bf2fdf84219
+Step 8/11 : WORKDIR /app
+ ---> Using cache
+ ---> dd7a061f4e46
+Step 9/11 : COPY --from=build-env /app/out .
+ ---> Using cache
+ ---> b1bc9d5df653
+Step 10/11 : EXPOSE 8080
+ ---> Using cache
+ ---> c7641694156f
+Step 11/11 : ENTRYPOINT ["dotnet", "TodoApi.dll"]
+ ---> Using cache
+ ---> 4c72d45f9786
+Successfully built 4c72d45f9786
+Successfully tagged mydotnetapp:latest
+dejan@test:~/rldatix$ sudo docker image ls
+REPOSITORY                        TAG       IMAGE ID       CREATED        SIZE
+dejanstojcevski/mydotnetapp       latest    e0df6fea9b2b   2 hours ago    221MB
+<none>                            <none>    8e430e9bda24   21 hours ago   896MB
+mydotnetapp                       latest    4c72d45f9786   21 hours ago   221MB
+<none>                            <none>    341223cf3a6a   21 hours ago   221MB
+<none>                            <none>    e190fd087c52   21 hours ago   221MB
+<none>                            <none>    9ad3e91b2822   21 hours ago   221MB
+<none>                            <none>    695c1ca6b49b   22 hours ago   221MB
+<none>                            <none>    8921f4d2d721   22 hours ago   221MB
+<none>                            <none>    989b0ed57501   22 hours ago   896MB
+<none>                            <none>    e65850fdc8a0   22 hours ago   896MB
+<none>                            <none>    3c5c746e6bfb   22 hours ago   221MB
+mcr.microsoft.com/dotnet/sdk      8.0       fcbdaa29fce6   3 days ago     866MB
+mcr.microsoft.com/dotnet/aspnet   8.0       4bf2fdf84219   3 days ago     217MB
+dejan@test:~/rldatix$ sudo docker tag mydotnetapp:latest 230005740435.dkr.ecr.us-east-1.amazonaws.com/mydotnetapp:latest
+dejan@test:~/rldatix$ sudo docker push 230005740435.dkr.ecr.us-east-1.amazonaws.com/mydotnetapp:latest
+The push refers to repository [230005740435.dkr.ecr.us-east-1.amazonaws.com/mydotnetapp]
+01d56a6bf1d2: Pushed 
+0f66ca590920: Pushed 
+2200575a6de5: Pushed 
+5dfd481b0bf1: Pushed 
+c75c7f2b5118: Pushed 
+047e0007fcf5: Pushed 
+ae3d04994a15: Pushed 
+52ec5a4316fa: Pushed 
+latest: digest: sha256:02d41cf337218f7063f6488689dfd875d5e2ca8810dad9668186aa2ba846d174 size: 1997
