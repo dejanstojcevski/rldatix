@@ -29,8 +29,7 @@ jobs:
 
     - name: Install MetalLB
       run: |
-        kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/main/config/manifests/metallb.yaml
-        # On first install only
+        kubectl apply -f kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.14.5/config/manifests/metallb-native.yaml
         kubectl create secret generic -n metallb-system memberlist --from-literal=secretkey="$(openssl rand -base64 128)"
 
     - name: Wait for MetalLB CRDs to be ready
