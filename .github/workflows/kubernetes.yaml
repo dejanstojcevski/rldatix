@@ -34,7 +34,12 @@ jobs:
     - name: Run Tests
       run: |
         kubectl get nodes
-        # Add more kubectl commands as needed for testing.
+        sleep 3
+        kubectl get pods -A
+        sleep 3
+        kubectl get deployments
+        sleep 3
+        kubectl get svc -A
 
     - name: Cleanup Cluster
       if: always()
