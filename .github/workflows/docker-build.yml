@@ -29,7 +29,7 @@ jobs:
         args: >
           -Dsonar.projectKey=dejan-rldatix
           -Dsonar.organization=dejan-rldatix
-          -Dsonar.projectBaseDir="./src""
+          -Dsonar.projectBaseDir=src
 
     - name: Build the project
       run: dotnet build --no-restore
