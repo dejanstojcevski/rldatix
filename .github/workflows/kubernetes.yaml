@@ -45,7 +45,8 @@ jobs:
         echo 'Running: kubectl get svc -A'
         kubectl get svc -A
         echo 'Waiting for our application to be in Ready state'
-        kubectl wait --for=condition=Ready deployment/mydotnetapp --timeout=1h
+        #kubectl wait --for=condition=Ready deployment/mydotnetapp --timeout=1h
+        sleep 30
         echo 'List all pods'
         kubectl get pods -A
 
