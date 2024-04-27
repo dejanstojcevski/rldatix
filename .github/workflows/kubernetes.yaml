@@ -42,7 +42,8 @@ jobs:
 
     - name: Configure MetalLB
       run: |
-        echo "apiVersion: metallb.io/v1
+        kubectl apply -f - <<EOF
+        apiVersion: metallb.io/v1beta1
         kind: AddressPool
         metadata:
           name: default
@@ -50,7 +51,8 @@ jobs:
         spec:
           protocol: layer2
           addresses:
-          - 172.17.0.100-172.17.0.250" | kubectl apply -f -
+          - 172.17.0.100-172.17.0.250
+        EOF
     
     - name: Install Helm
       run: |
