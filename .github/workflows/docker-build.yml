@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  build-and-push:
+  analyze-build-and-push:
     runs-on: ubuntu-latest
     steps:
     - name: Check out the code
@@ -16,6 +16,9 @@ jobs:
       uses: actions/setup-dotnet@v3
       with:
         dotnet-version: '8.0'
+
+    - name: Change to project directory
+      run: cd src
 
     - name: Restore dependencies
       run: dotnet restore
