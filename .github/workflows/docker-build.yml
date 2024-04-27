@@ -26,7 +26,10 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
       with:
-        projectBaseDir: "./src"
+        args: >
+          -Dsonar.projectKey=dejan-rldatix
+          -Dsonar.organization=dejan-rldatix
+          -Dsonar.projectBaseDir="./src""
 
     - name: Build the project
       run: dotnet build --no-restore
