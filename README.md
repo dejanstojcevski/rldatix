@@ -16,4 +16,17 @@ you can login with these credentials into Dockerhub in order to see build images
 
 Two SemVer tags are added to every docker image in the form: 1.0.<gh_actions_run_number> and "latest"
 
+So, consecutive runs of this workflow will generate docker images with incremental semver tags and the tag "latest" will always be attached to latest build docker image.
+
+https://hub.docker.com/repository/docker/dejanstojcevski/mydotnetapp/general
+
+4. Added scanning of source code with SonarCloud in GitHub Actions workflow.
+To do this, several prerequsites ar needed:
+- open private organization on SonarCloud. my sonarcloud account is connected to github identitiy provider which recuires MFA - so you can not login to my SonarCloud account to see scanned jobs.
+- generate API token in SonarCloud
+- put this token in GitHub Actions secrets as SONAR_TOKEN secret
+- reference this token in workfolw file
+
+Also, simple test is configured in GitHub workflow before building docker file and push it to DockerHub.
+
 
