@@ -42,4 +42,6 @@ This cluster will be used to host our mydotnetapp deployment.
 
 NOTE: I tried to install MetalLB addon to KIND k8s cluster but failed to do so. Wanted to configure the kubernetes service of mydotnetapp to be of type LoadBalancer and expose our app to external world (outside of k8s). Since I failed to configure MetalLB addon, we will access our app with "kubectl port-forward" action.
 
+In order our app to be in Ready state, I removed liveness and readiness probes because they are not configured in the application code itself.
+
 
