@@ -22,36 +22,36 @@ jobs:
         kind create cluster
         kubectl cluster-info --context kind-kind
     
+    - name: Install MetalLB CRDs
+      run: |
+        kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/main/config/crd/bases/metallb.io_addresspools.yaml
+        kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/main/config/crd/bases/metallb.io_l2advertisements.yaml
+
     - name: Install MetalLB
       run: |
-        kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.6/manifests/namespace.yaml
-        kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.6/manifests/metallb.yaml
+        kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/main/config/manifests/metallb.yaml
         # On first install only
         kubectl create secret generic -n metallb-system memberlist --from-literal=secretkey="$(openssl rand -base64 128)"
 
     - name: Wait for MetalLB CRDs to be ready
       run: |
-        for crd in ipaddresspools.metallb.io l2advertisements.metallb.io
+        for crd in addresspools.metallb.io l2advertisements.metallb.io
         do
           echo "Waiting for $crd to be ready..."
-          kubectl wait --namespace metallb-system --for=condition=Established --timeout=60s crd/$crd
+          kubectl wait --for=condition=Established --timeout=60s crd/$crd
         done
 
     - name: Configure MetalLB
       run: |
-        echo "apiVersion: metallb.io/v1beta1
-        kind: IPAddressPool
+        echo "apiVersion: metallb.io/v1
+        kind: AddressPool
         metadata:
           name: default
           namespace: metallb-system
         spec:
+          protocol: layer2
           addresses:
           - 172.17.0.100-172.17.0.250" | kubectl apply -f -
-        echo "apiVersion: metallb.io/v1beta1
-        kind: L2Advertisement
-        metadata:
-          name: default
-          namespace: metallb-system" | kubectl apply -f -
     
     - name: Install Helm
       run: |
