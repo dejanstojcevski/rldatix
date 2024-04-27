@@ -36,6 +36,10 @@ Ideally, helm charts are stored in a remote Helm repository (github pages, chart
 Packaging helm charts: "helm package ./"
 
 6. Added second GitHUB Actions workflow with dependency on the previous workflow.
-This workflow will provision kubernetes cluster with kind and use this cluster for tests/deploy our ample application with helm.
+This workflow will provision kubernetes cluster with kind and use this cluster for tests/deploy our sample application with helm.
+With this workflow, new KIND k8s cluster is configured and tested.
+This cluster will be used to host our mydotnetapp deployment.
+
+NOTE: I tried to install MetalLB addon to KIND k8s cluster but failed to do so. Wanted to configure the kubernetes service of mydotnetapp to be of type LoadBalancer and expose our app to external world (outside of k8s). Since I failed to configure MetalLB addon, we will access our app with "kubectl port-forward" action.
 
 

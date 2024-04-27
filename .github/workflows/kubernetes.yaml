@@ -44,6 +44,10 @@ jobs:
         sleep 5
         echo 'Running: kubectl get svc -A'
         kubectl get svc -A
+        echo 'Waiting for our application to be in Ready state'
+        kubectl wait --for=condition=Ready pod/mydotnetapp
+        echo 'List all pods'
+        kubectl get pods -A
 
     - name: Cleanup Cluster
       if: always()
