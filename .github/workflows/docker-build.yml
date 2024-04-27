@@ -40,7 +40,10 @@ jobs:
     - name: SonarCloud end step
       uses: SonarSource/sonarcloud-github-action@master
       with:
-        args: end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
+        args: >
+          -Dsonar.projectKey=dejan-rldatix
+          -Dsonar.organization=dejan-rldatix
+          -Dsonar.projectBaseDir=src
 
       
     - name: Log in to DockerHub
