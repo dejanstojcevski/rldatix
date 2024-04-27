@@ -49,6 +49,10 @@ jobs:
         sleep 30
         echo 'List all pods'
         kubectl get pods -A
+        echo 'Make port forwarding to our application service port 80 inside the cluster from port 8888 on localhost'
+        kubectl port-forward --address localhost svc/mydotnetapp 8888:80 &
+        echo 'Curl to our app with command curl http://localhost:8888'
+        curl http://localhost:8888
 
     - name: Cleanup Cluster
       if: always()
