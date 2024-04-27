@@ -17,11 +17,8 @@ jobs:
       with:
         dotnet-version: '8.0'
 
-    - name: Change to project directory
-      run: cd src
-
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore "src/TodoApi.csproj"
 
     - name: Begin SonarCloud analysis
       uses: SonarSource/sonarcloud-github-action@master
